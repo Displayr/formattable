@@ -10,10 +10,9 @@ pkgs.rPackages.buildRPackage {
     to improve the readability of data presented in tabular form rendered in
     web pages.'';
   propagatedBuildInputs = with pkgs.rPackages; [ 
+    rmarkdown
     htmltools
     htmlwidgets
     knitr
-    rmarkdown
- ];
-
+  ];
 }
