@@ -73,13 +73,15 @@ test_that("currency", {
   expect_equal(format(currency(1000, "USD", digits = 0, sep = " ")), "USD 1,000")
   expect_equal(format(currency("$ 123,234.50", sep = " ")), "$ 123,234.50")
   expect_warning(currency("a"))
-  expect_equal(currency("$ 123,234.50"), currency(123234.50))
-  expect_equal(currency(c("$ 123,234.50", "$123.503")),
-    currency(c(123234.500, 123.503), digits = 3))
-  expect_equal(currency(c("HK$ 123,234.50", "HK$ 123.503"), symbol = "HK$"),
-    currency(c(123234.500, 123.503), symbol = "HK$", digits = 3))
-  expect_equal(currency(c("HK$ 123,234.50", "HK$ 123.503")),
-    currency(c(123234.500, 123.503), symbol = "HK$", digits = 3))
+  # Compare formatted output, as upstream formattable does: since R 4.1 all.equal() also compares the formatting
+  # closures' environments, which differ between currency.character() and dispatched currency.default().
+  expect_equal(format(currency("$ 123,234.50")), format(currency(123234.50)))
+  expect_equal(format(currency(c("$ 123,234.50", "$123.503"))),
+    format(currency(c(123234.500, 123.503), digits = 3)))
+  expect_equal(format(currency(c("HK$ 123,234.50", "HK$ 123.503"), symbol = "HK$")),
+    format(currency(c(123234.500, 123.503), symbol = "HK$", digits = 3)))
+  expect_equal(format(currency(c("HK$ 123,234.50", "HK$ 123.503"))),
+    format(currency(c(123234.500, 123.503), symbol = "HK$", digits = 3)))
   expect_is(currency(NA), "numeric")
 })
 
