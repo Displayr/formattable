@@ -11,3 +11,5 @@
 ^CRAN-RELEASE$
 ^cran-comments\.md$
 ^\.vscode$
+^AGENTS\.md$
+^CLAUDE\.md$
